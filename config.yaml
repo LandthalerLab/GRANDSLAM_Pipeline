@@ -1,0 +1,58 @@
+#####################
+# Paths
+#####################
+
+# path to scripts folder, DONT CHANGE unless you have to
+scripts_path: "/fast/AG_Landthaler/Pipelines/GRAND-SLAM/v1/scripts"
+
+# path to metadata file (.tsv format, tab seperated values) for paired reads
+metadata: "metadata.tsv"
+
+# path to fastq files 
+fastq_dir: "/fast/AG_Landthaler/Projects/SpatialSLAM/data/CRC_SLAM_260523/"
+
+# main output location
+result_dir: "output/"
+
+###########################
+### References and Indices
+###########################
+
+# Bowtie2 indices for rRNA removal (NOTE: the path shouldnt have a "/" at the end)
+contamination_reference: "/fast/AG_Landthaler/genomes/hg19_riboprof_contamination/contaminantDBred/homosapiens_riboprof_contaminants"
+
+# STAR aligner index
+reference: "/fast/AG_Landthaler/genomes/hg38/GRAND-SLAMv3_2.0.7b/STAR-index"
+
+# GRAND-SLAM Reference
+GRANDSLAM_reference: "/fast/AG_Landthaler/genomes/hg38/GRAND-SLAMv3_2.0.7b/genome.oml"
+
+######################
+## Parameters
+######################
+
+# TRUE if duplicated to be removed
+remove_duplicates: TRUE
+
+# Bowtie2 aligners parameters for rRNA removal
+bowtie2_param: "--no-unal"
+
+# TRUE if rRNA contaminations to be removed
+remove_contamination: TRUE
+
+# STAR aligner parameters for GRAND-SLAM
+STAR_param: "--outSAMattributes MD NH --alignEndsType EndToEnd"
+
+# GRAND-SLAM parameters
+grandslam_param: "-D -allGenes -progress -full"
+
+######################
+### QSUB Job Parameters
+#######################
+
+# change these for additional memory and other qsub requirements, leave empty ("") if no need for a parameter
+qsub_duplicateRemoval: "-l m_mem_free=120G"
+qsub_removeContamination: "-l m_mem_free=50G"
+qsub_STAR: "-l m_mem_free=50G"
+qsub_bam2cit: "-l m_mem_free=50G"
+qsub_GRANDSLAM: "-l m_mem_free=50G"
